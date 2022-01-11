@@ -1,6 +1,6 @@
 import java.util.Calendar;
 import java.util.Date;
-
+/*/////!!!!!!!!!!!!!!!!!!!!!
 public class Main {
     public static void main(String[] args) {
         ToDoList l1 = new ToDoList();
@@ -118,8 +118,9 @@ public class Main {
     }
 
     /**
-     * Checks all of the scan types for a given ToDoList.
+     * Checks all the scan types for a given ToDoList.
      */
+/* /////!!!!!!!!!!!!!!!!!!!!!
     private static void checkAllScans(ToDoList tdl) {
         for (Task t : tdl) {
             System.out.println(t);
