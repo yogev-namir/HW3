@@ -13,30 +13,30 @@ public class ToDoList implements Iterable<Task>, Cloneable, TaskIterable{
 
     @Override
     public Iterator<Task> iterator() {
-        ToDoListIterator it = new ToDoListIterator(this);
-        return tasksList.iterator();
+       return new ToDoListIterator(this);
+
     }
-    public ToDoList createUncompletedList(){
+    public ToDoList createUncompletedList() {
         ToDoList cloned = this.clone();
-        for(Task t : cloned.tasksList){
-            if(t.taskStatus())
-               cloned.tasksList.remove(t);
-        }
+        if (cloned != null){
+            for (Task t : this.tasksList) {
+                if (t.isCompleted())
+                    cloned.tasksList.remove(t);
+            }
+    }
         return cloned;
     }
-    public void addTask(Task task){
+    public void addTask(Task task) throws TaskAlreadyExistsException{
         for(Task t : tasksList) {
-            try {
                 if (t.getDescription().equals(task.getDescription()))
-                    throw new TaskAlreadyExistException();
-                Task temp = t.clone();
-                tasksList.add(temp);
+                    throw new TaskAlreadyExistsException();
+                //Task temp = t.clone();
+
             }
-            catch (TaskAlreadyExistException e) {
-                return;
-            }
+        tasksList.add(task);
+
         }
-    }
+
     public ArrayList<Task> getTasksList() {
         return tasksList;
     }
@@ -49,40 +49,58 @@ public class ToDoList implements Iterable<Task>, Cloneable, TaskIterable{
     }
     @Override
     public String toString() {
-        Iterator<Task> it = iterator();
-        if (! it.hasNext())
+        ToDoListIterator it = new ToDoListIterator(this);
+        ToDoListIterator.setScanningType(ScanningType.UNCOMPLETED);
+        if (!it.hasNext())
             return "[]";
         StringBuilder sb = new StringBuilder();
-        sb.append('[').append('(');
+        sb.append('[');
         for (;;) {
             Task task = it.next();
             sb.append('(').append(task).append(')');
-            if (! it.hasNext())
+            if (! it.hasNext()) {
+                ToDoListIterator.setScanningType(ScanningType.ALL);
                 return sb.append(']').toString();
+            }
             sb.append(',').append(' ');
+
         }
+
+
     }
 
     @Override
     public ToDoList clone() {
         try {
-            ToDoList clonedList = (ToDoList) super.clone();
-            Iterator<Task> it = this.iterator();
+
+            ToDoList temp = (ToDoList) super.clone();
+            ToDoListIterator it = new ToDoListIterator(this);
+            ToDoList clonedList=new ToDoList();
+
+          //  ToDoListIterator.setScanningType(ScanningType.ALL);
             while(it.hasNext()){
-                Task originalTask = it.next();
-                Task newTask= originalTask.clone();
-                clonedList.addTask(newTask);
+                clonedList.addTask(( it.next()).clone());
+                //clonedList.addTask(newTask);
             }
             return clonedList;
-        } catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException | TaskAlreadyExistsException e) {
             return null;
         }
     }
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ToDoList tasks = (ToDoList) o;
-        return Objects.equals(tasksList, tasks.tasksList);
-    }
-}
+        public boolean equals(Object tdl) {
+            if (this == tdl) return true;
+            if (tdl == null || this.getClass() != tdl.getClass()) return false;
+            ToDoList tasks = (ToDoList) tdl;
+            ToDoList compare1=this.createUncompletedList();
+            ToDoList compare2=tasks.createUncompletedList();
+            //compare1.createUncompletedList();
+           if ( compare1.tasksList.containsAll(compare2.tasksList) &&
+                   compare2.tasksList.containsAll(compare1.tasksList)){
+                return true;
+            }
+            return false;
+        }
+
+        }
+

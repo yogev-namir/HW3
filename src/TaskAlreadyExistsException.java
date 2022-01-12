@@ -1,8 +1,8 @@
-public class TaskAlreadyExistException extends Exception{
+public class TaskAlreadyExistsException extends Exception{
     /**
      * Constructs a CloneNotSupportedException with no detail message.
      */
-    public TaskAlreadyExistException() {
+    public TaskAlreadyExistsException() {
         super();
     }
 
@@ -12,7 +12,7 @@ public class TaskAlreadyExistException extends Exception{
      *
      * @param   s   the detail message.
      */
-    public TaskAlreadyExistException(String s) {
+    public TaskAlreadyExistsException(String s) {
         super(s);
     }
 }

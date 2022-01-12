@@ -1,3 +1,7 @@
+import javafx.scene.input.DataFormat;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -28,10 +32,11 @@ public class Task implements Cloneable{
 
     @Override
     public String toString() {
-        return getDescription()+","+getDueDate();
+        DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+        return getDescription() + ", " +formatter.format(getDueDate());
     }
 
-    public boolean taskStatus(){
+    public boolean isCompleted(){
         return isDone;
     }
 

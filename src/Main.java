@@ -1,8 +1,8 @@
 import java.util.Calendar;
 import java.util.Date;
-/*/////!!!!!!!!!!!!!!!!!!!!!
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TaskAlreadyExistsException {
         ToDoList l1 = new ToDoList();
         for (Task t : l1) {
             System.out.println("You should not reach here!");
@@ -120,7 +120,7 @@ public class Main {
     /**
      * Checks all the scan types for a given ToDoList.
      */
-/* /////!!!!!!!!!!!!!!!!!!!!!
+
     private static void checkAllScans(ToDoList tdl) {
         for (Task t : tdl) {
             System.out.println(t);
