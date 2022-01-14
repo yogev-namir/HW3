@@ -1,4 +1,6 @@
+/**
+ * an interface that allows to scan a "todoList"(extends arrayList)
+ */
 public interface TaskIterable extends Iterable<Task>{
-    public void setScanningType(ScanningType type);
-
+    void setScanningType(ScanningType type);
 }

@@ -56,12 +56,14 @@ public class Main {
 
 
         try {
-            l1.addTask(new Task("SoftwareEngineering HW0", new Date(2021 - 1900, Calendar.NOVEMBER, 24)));
+            l1.addTask(new Task("SoftwareEngineering HW0",
+                    new Date(2021 - 1900, Calendar.NOVEMBER, 24)));
         } catch (TaskAlreadyExistsException e) {
             System.out.println("Cannot add the task!");
         }
         try {
-            l1.addTask(new Task("SoftwareEngineering HW0", new Date(2018, Calendar.MARCH, 21)));
+            l1.addTask(new Task("SoftwareEngineering HW0",
+                    new Date(2018, Calendar.MARCH, 21)));
         } catch (TaskAlreadyExistsException e) {
             System.out.println("Cannot add the task!");
         }
@@ -75,7 +77,8 @@ public class Main {
         checkAllScans(l1);
 
         ToDoList l4 = new ToDoList();
-        Task t5 = new Task("SoftwareEngineering HW3", new Date(2022 - 1900, Calendar.JANUARY, 16));
+        Task t5 = new Task("SoftwareEngineering HW3",
+                new Date(2022 - 1900, Calendar.JANUARY, 16));
         System.out.println("l1: " + l1);
         System.out.println("l4: " + l4);
         System.out.println("Are lists l1 and l4 equal? " + l1.equals(l4));
@@ -94,7 +97,8 @@ public class Main {
         System.out.println("Are lists l4 and l1 equal? " + l4.equals(l1));
 
         ToDoList l5 = new ToDoList();
-        Task t6 = new Task("SoftwareEngineering HW3", new Date(2022 - 1900, Calendar.SEPTEMBER, 17));
+        Task t6 = new Task("SoftwareEngineering HW3",
+                new Date(2022 - 1900, Calendar.SEPTEMBER, 17));
         l5.addTask(t6);
         System.out.println("l1: " + l1);
         System.out.println("l5: " + l5);
