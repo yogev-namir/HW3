@@ -88,6 +88,7 @@ public class Task implements Cloneable{
         try {
             Task clone = (Task) super.clone();
             clone.dueDate = (Date) dueDate.clone();
+            clone.isDone = new Boolean(isDone);
             return clone;
         } catch (CloneNotSupportedException e) {
             return null;

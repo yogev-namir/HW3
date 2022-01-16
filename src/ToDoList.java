@@ -1,20 +1,30 @@
+
+
 import java.util.*;
 
 public class ToDoList implements Iterable<Task>, Cloneable, TaskIterable{
-    private final ArrayList<Task> tasksList;
+    private ArrayList<Task> tasksList;
 
     /**
-     * constructor
+     * class constructor, creates new ArrayList
      */
     public ToDoList() {
         this.tasksList = new ArrayList<>();
     }
 
+    /**
+     *
+     * @return creates new Iterator for the list
+     */
     @Override
     public Iterator<Task> iterator() {
        return new ToDoListIterator(this);
 
     }
+
+    /**
+     * @return only the uncomplited task in the list
+     */
     public ToDoList createUncompletedList() {
         ToDoList cloned = this.clone();
         if (cloned != null){
@@ -22,9 +32,15 @@ public class ToDoList implements Iterable<Task>, Cloneable, TaskIterable{
                 if (t.isCompleted())
                     cloned.tasksList.remove(t);
             }
-    }
+        }
         return cloned;
     }
+
+    /**
+     * adds a task to the list, if similar one does not already exist
+     * @param task the task we want to append to the list
+     * @throws TaskAlreadyExistsException
+     */
     public void addTask(Task task) throws TaskAlreadyExistsException{
         for(Task t : tasksList)
                 if (t.getDescription().equals(task.getDescription()))
@@ -33,8 +49,7 @@ public class ToDoList implements Iterable<Task>, Cloneable, TaskIterable{
     }
 
     /**
-     *
-     * @return
+     * @return an ArrayList<Task>
      */
     public ArrayList<Task> getTasksList() {
         return tasksList;
@@ -73,14 +88,29 @@ public class ToDoList implements Iterable<Task>, Cloneable, TaskIterable{
      * @return creates a deep-copy clone of the given tasks list(all tasks)
      */
     @Override
-    public ToDoList clone() {
-        try {
-            ToDoListIterator it = new ToDoListIterator(this);
-            ToDoList clonedList = new ToDoList();
-            while(it.hasNext())
-                clonedList.addTask(( it.next()).clone());
-            return clonedList;
-        } catch (TaskAlreadyExistsException e) {
+    public  ToDoList clone(){
+        try{
+            ToDoList listClone = (ToDoList) super.clone();
+            listClone.tasksList = (ArrayList<Task>) this.getTasksList().clone();
+            for(int i = 0; i < listClone.tasksList.size(); i++) {
+                listClone.tasksList.set(i,listClone.getTask(i).clone());
+            }
+            return listClone;
+        }
+        catch(CloneNotSupportedException | NullPointerException e){
+            return null;
+        }
+    }
+
+    /**
+     * @param i task's index in the list
+     * @return the desired task if excise
+     */
+    private Task getTask(int i) {
+        try{
+            return this.tasksList.get(i);
+        }
+        catch (IndexOutOfBoundsException e){
             return null;
         }
     }
